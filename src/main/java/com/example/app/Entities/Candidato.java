@@ -3,8 +3,14 @@ package com.example.app.Entities;
 import com.example.app.Enum.StatusCandidato;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Candidato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +31,7 @@ public class Candidato {
 
     @Enumerated(EnumType.STRING)
     private StatusCandidato status;
-    
+
+    @Transient
+    private long votos;
 }
