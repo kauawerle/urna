@@ -1,5 +1,6 @@
 package com.example.app.Entities;
 
+import com.example.app.Enum.StatusCandidato;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -20,7 +21,9 @@ public class Candidato {
     private Long codigoUnico;
 
     @NotBlank
-    private String cargo;
+    private Integer cargo;
 
+    @Enumerated(EnumType.STRING)
+    private StatusCandidato status;
     
 }
