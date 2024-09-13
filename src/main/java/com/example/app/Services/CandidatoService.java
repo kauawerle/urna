@@ -31,8 +31,12 @@ public class CandidatoService {
 
         if (candidatoOptional.isPresent()) {
             Candidato candidato = candidatoOptional.get();
-            candidato.setStatus(StatusCandidato.INATIVO);
-            this.candidatoRepository.updateUserStatus(candidato.getId(), candidato.getStatus());
+            if(candidato.getStatus() != StatusCandidato.INATIVO) {
+                candidato.setStatus(StatusCandidato.INATIVO);
+                this.candidatoRepository.updateUserStatus(candidato.getId(), candidato.getStatus());
+            } else{
+                return "Candidato já foi excluido";
+            }
         }
         return "Candidato removido";
     }
@@ -63,11 +67,10 @@ public class CandidatoService {
         return "Candidato atualizado";
     }
 
-    public List<Candidato> findAll() {
+    public List<Candidato> findAllPrefeito() {
         return this.candidatoRepository.findByPrefeitoName(1, StatusCandidato.ATIVO);
     }
-    public List<Eleitor> findAll() {
-        return this.eleitorRepository.findByEleitorName(2, StatusEleitor.);
+    public List<Candidato> findAllVereador() {
+        return this.candidatoRepository.findByVereadorName(2, StatusCandidato.ATIVO);
     }
-
 }
