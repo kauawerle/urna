@@ -54,7 +54,7 @@ public class EleitorService {
         return "Eleitor atualizado";
     }
 
-    public String deleteEleitor(Eleitor eleitorUpadated, long id) {
+    public String deleteEleitor(Eleitor eleitorUpdated, long id) {
         Optional<Eleitor> eleitorOptional =
                 this.eleitorRepository.findById(id);
 

@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CandidatoRepository extends JpaRepository<Candidato, Long> {
-    List<Candidato> findByPrefeitoName(String nomePrefeito, int cargo, StatusCandidato status);
-    List<Candidato> findByVereadorName(String nomeVereador, int cargo, StatusCandidato status);
+    List<Candidato> findByPrefeitoName(int cargo, StatusCandidato status);
+    List<Candidato> findByVereadorName(int cargo, StatusCandidato status);
 
-    void updateUserStatus(Long userId, StatusEleitor newStatus);
+    void updateUserStatus(Long userId, StatusCandidato newStatus);
 }
