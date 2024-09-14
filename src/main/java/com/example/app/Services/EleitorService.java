@@ -69,6 +69,6 @@ public class EleitorService {
     }
 
     public List<Eleitor> findAll() {
-        return this.eleitorRepository.findByEleitorAtivo(StatusEleitor.APTO);
+        return this.eleitorRepository.findByStauts(StatusEleitor.APTO);
     }
 }

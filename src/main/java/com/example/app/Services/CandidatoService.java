@@ -68,9 +68,9 @@ public class CandidatoService {
     }
 
     public List<Candidato> findAllPrefeito() {
-        return this.candidatoRepository.findByPrefeitoName(1, StatusCandidato.ATIVO);
+        return this.candidatoRepository.findByPrefeito(1, StatusCandidato.ATIVO);
     }
     public List<Candidato> findAllVereador() {
-        return this.candidatoRepository.findByVereadorName(2, StatusCandidato.ATIVO);
+        return this.candidatoRepository.findByVereador(2, StatusCandidato.ATIVO);
     }
 }
