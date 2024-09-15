@@ -50,7 +50,7 @@ public class EleitorController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PutMapping("/delete/{id}")
     public ResponseEntity<String> delete( Eleitor eleitor, @PathVariable long id){
         try {
             String mensagem = this.eleitorService.deleteEleitor(eleitor, id);

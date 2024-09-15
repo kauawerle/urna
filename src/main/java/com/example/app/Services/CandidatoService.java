@@ -4,6 +4,7 @@ import com.example.app.Entities.Candidato;
 import com.example.app.Entities.Candidato;
 import com.example.app.Entities.Candidato;
 import com.example.app.Entities.Eleitor;
+import com.example.app.Enum.Cargo;
 import com.example.app.Enum.StatusCandidato;
 import com.example.app.Enum.StatusCandidato;
 import com.example.app.Enum.StatusEleitor;
@@ -71,6 +72,10 @@ public class CandidatoService {
         return this.candidatoRepository.findByPrefeito(1, StatusCandidato.ATIVO);
     }
     public List<Candidato> findAllVereador() {
-        return this.candidatoRepository.findByVereador(2, StatusCandidato.ATIVO);
+        try{
+            return this.candidatoRepository.findByVereador(Cargo.VEREADOR, StatusCandidato.ATIVO);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

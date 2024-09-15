@@ -30,10 +30,10 @@ public class Eleitor {
     private String profissao;
 
     @NotBlank
-    @Pattern(regexp = "^([1-9]{2}) 9[7-9]{1}[0-9]{3}-[0-9]{4}$\n", message = "Número de celular inválido")
+    @Pattern(regexp = "^([1-9]{2}) 9[7-9]{1}[0-9]{3}-[0-9]{4}$", message = "Número de celular inválido")
     private String celular;
 
-    @Pattern(regexp = "^([1-9]{2}) 9[7-9]{1}[0-9]{3}-[0-9]{4}$\n", message = "Número de telefone fixo inválido")
+    @Pattern(regexp = "^([1-9]{2}) 9[7-9]{1}[0-9]{3}-[0-9]{4}$", message = "Número de celular inválido")
     private String telefone;
 
     @Email

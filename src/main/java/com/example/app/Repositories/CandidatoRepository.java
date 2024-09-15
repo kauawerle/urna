@@ -1,6 +1,7 @@
 package com.example.app.Repositories;
 
 import com.example.app.Entities.Candidato;
+import com.example.app.Enum.Cargo;
 import com.example.app.Enum.StatusCandidato;
 import com.example.app.Enum.StatusEleitor;
 import jakarta.transaction.Transactional;
@@ -15,7 +16,7 @@ public interface CandidatoRepository extends JpaRepository<Candidato, Long> {
     List<Candidato> findByPrefeito(int cargo, StatusCandidato status);
 
     @Query("SELECT c FROM Candidato c WHERE c.cargo = :cargo AND c.status = :status AND c.cargo = 2")
-    List<Candidato> findByVereador(int cargo, StatusCandidato status);
+    List<Candidato> findByVereador(Cargo cargo, StatusCandidato status);
 
     @Modifying
     @Transactional
