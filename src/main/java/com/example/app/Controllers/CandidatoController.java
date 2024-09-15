@@ -25,7 +25,6 @@ public class CandidatoController {
     public ResponseEntity<String> save(@RequestBody @Valid Candidato candidato){
         try {
             String result = this.candidatoService.saveCandidato(candidato);
-            candidato.setStatus(StatusCandidato.ATIVO);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(

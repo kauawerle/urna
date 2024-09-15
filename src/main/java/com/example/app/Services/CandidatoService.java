@@ -22,6 +22,7 @@ public class CandidatoService {
     private CandidatoRepository candidatoRepository;
 
     public String saveCandidato(Candidato candidato) {
+        candidato.setStatus(StatusCandidato.ATIVO);
         this.candidatoRepository.save(candidato);
         return "Candidato cadastrado!";
     }
@@ -34,10 +35,12 @@ public class CandidatoService {
             Candidato candidato = candidatoOptional.get();
             if(candidato.getStatus() != StatusCandidato.INATIVO) {
                 candidato.setStatus(StatusCandidato.INATIVO);
-                this.candidatoRepository.updateUserStatus(candidato.getId(), candidato.getStatus());
+                this.candidatoRepository.save(candidato);
             } else{
                 return "Candidato já foi excluido";
             }
+        } else {
+            return "Não foi encontrado o candidato";
         }
         return "Candidato removido";
     }
@@ -69,13 +72,9 @@ public class CandidatoService {
     }
 
     public List<Candidato> findAllPrefeito() {
-        return this.candidatoRepository.findByPrefeito(1, StatusCandidato.ATIVO);
+        return this.candidatoRepository.findByCargoAndStatus(Cargo.PREFEITO, StatusCandidato.ATIVO);
     }
     public List<Candidato> findAllVereador() {
-        try{
-            return this.candidatoRepository.findByVereador(Cargo.VEREADOR, StatusCandidato.ATIVO);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        return this.candidatoRepository.findByCargoAndStatus(Cargo.VEREADOR, StatusCandidato.ATIVO);
     }
 }
