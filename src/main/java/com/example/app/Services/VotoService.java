@@ -1,5 +1,6 @@
 package com.example.app.Services;
 
+import com.example.app.Entities.Apuracao;
 import com.example.app.Entities.Candidato;
 import com.example.app.Entities.Eleitor;
 import com.example.app.Entities.Voto;
@@ -10,13 +11,11 @@ import com.example.app.Repositories.CandidatoRepository;
 import com.example.app.Repositories.EleitorRepository;
 import com.example.app.Repositories.VotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.management.RuntimeErrorException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -58,6 +57,8 @@ public class VotoService {
             throw new IllegalArgumentException("Esse eleitor está inativo");
         } else if (eleitor.getStatus() == StatusEleitor.VOTOU) {
             throw new IllegalArgumentException("Esse eleitor já votou");
+        } else if (eleitor.getStatus() == StatusEleitor.APTO) {
+            eleitor.setStatus(StatusEleitor.VOTOU);
         }
     }
 
@@ -76,5 +77,30 @@ public class VotoService {
         if(candidato.getStatus() == StatusCandidato.INATIVO){
             throw new IllegalArgumentException("Candidato inativo");
         }
+    }
+
+    public Apuracao realizarApuracao() {
+       List<Candidato> prefeito = this.candidatoRepository.findByCargoAndStatus(Cargo.PREFEITO, StatusCandidato.ATIVO);
+       List<Candidato> vereador = this.candidatoRepository.findByCargoAndStatus(Cargo.VEREADOR, StatusCandidato.ATIVO);
+
+       Apuracao apuracao = new Apuracao();
+       apuracao.setCandidatosPrefeito(prefeito);
+       apuracao.setCandidatosVereador(vereador);
+
+       apuracao.setTotalVotos((int) votoRepository.count());
+
+       for(Candidato prefeitoCurrent: prefeito){
+           int votos = votoRepository.countByCandidatoPrefeitoId(prefeitoCurrent.getId());
+           prefeitoCurrent.setVotos(votos);
+       }
+        for(Candidato vereadorCurrent: vereador){
+            int votos = votoRepository.countByCandidatoVereadorId(vereadorCurrent.getId());
+            vereadorCurrent.setVotos(votos);
+        }
+
+        Collections.sort(prefeito, (list1, list2) -> Integer.compare(list2.getVotos(), list1.getVotos()));
+        Collections.sort(vereador, (list1, list2) -> Integer.compare(list2.getVotos(), list1.getVotos()));
+
+        return apuracao;
     }
 }

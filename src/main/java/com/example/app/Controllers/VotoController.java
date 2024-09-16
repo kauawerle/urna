@@ -1,5 +1,6 @@
 package com.example.app.Controllers;
 
+import com.example.app.Entities.Apuracao;
 import com.example.app.Entities.Voto;
 import com.example.app.Repositories.EleitorRepository;
 import com.example.app.Services.EleitorService;
@@ -30,6 +31,16 @@ public class VotoController {
             String mensagem = this.votoService.votar(voto, eleitor_id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
         } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @GetMapping("/apuracao")
+    public ResponseEntity<?> apuracao() {
+        try {
+            Apuracao apuracao = this.votoService.realizarApuracao();
+            return new ResponseEntity<>(apuracao, HttpStatus.OK);
+        } catch (RuntimeException e) {
             throw new RuntimeException(e.getMessage());
         }
     }

@@ -34,5 +34,5 @@ public class Candidato {
     private StatusCandidato status;
 
     @Transient
-    private long votos;
+    private int votos;
 }
