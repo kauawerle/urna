@@ -27,6 +27,7 @@ public class CandidatoService {
         return "Candidato cadastrado!";
     }
 
+
     public String deleteCandidato(Candidato candidatoUpdated, long id) {
         Optional<Candidato> candidatoOptional =
                 this.candidatoRepository.findById(id);
