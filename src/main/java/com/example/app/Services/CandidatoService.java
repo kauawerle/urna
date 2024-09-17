@@ -23,10 +23,19 @@ public class CandidatoService {
 
     public String saveCandidato(Candidato candidato) {
         candidato.setStatus(StatusCandidato.ATIVO);
+        validateCandidato(candidato);
         this.candidatoRepository.save(candidato);
         return "Candidato cadastrado!";
     }
 
+    private void validateCandidato(Candidato candidato) {
+        Cargo cargoCandidato = candidato.getCargo();
+
+        if (cargoCandidato != Cargo.PREFEITO && cargoCandidato != Cargo.VEREADOR) {
+            throw new IllegalArgumentException("O canditado deve ter um cargo!! >:(");
+        }
+
+    }
 
     public String deleteCandidato(Candidato candidatoUpdated, long id) {
         Optional<Candidato> candidatoOptional =
