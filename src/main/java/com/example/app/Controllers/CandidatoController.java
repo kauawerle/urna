@@ -45,6 +45,7 @@ public class CandidatoController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/findAllPrefeito")
     public ResponseEntity<List<Candidato>> findAllPrefeito(){
         try {
